@@ -1,0 +1,16 @@
+{
+  "name": "MathVisualizer",
+  "version": "0.0.1",
+  "dependencies": {
+    "@types/express": "^4.0.39",
+    "@types/mathjax": "0.0.32",
+    "@types/mathjs": "0.0.35",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "typescript": "^2.5.3"
+  },
+  "scripts": {
+    "start": "node server/ts/app"
+  }
+}

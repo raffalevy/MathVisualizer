@@ -1,0 +1,5 @@
+/.idea/
+/node_modules/
+/server/ts/*.js
+/client/ts/*.js
+*.js.map
