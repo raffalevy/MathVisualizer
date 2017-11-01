@@ -5,6 +5,10 @@
     font-size: 12pt;
 }
 
+body {
+    margin: 0 2%;
+}
+
 h1 {
     font-weight: normal;
     font-size: 28pt;

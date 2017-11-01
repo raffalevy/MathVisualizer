@@ -3,3 +3,4 @@
 /server/ts/*.js
 /client/ts/*.js
 *.js.map
+/client/bundle.js

@@ -2,22 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MathVisualizer</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" async
-            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <title>React Plotter Test</title>
 </head>
 <body>
-<h1>Math Visualizer</h1>
-
-<p>Type a parametric function to plot:
-
-<p><label>\(x(t) = \) <input type="text" id="xInput"></label> <span id="xTex"></span>
-<p><label>\(y(t) = \) <input type="text" id="yInput"></label> <span id="yTex"></span>
-
-<p><canvas id="visualizer"></canvas>
-<script src="lib/math.js"></script>
-<script src="ts/index.js"></script>
+<div id="plotterDiv"></div>
+<script src="bundle.js"></script>
 </body>
 </html>

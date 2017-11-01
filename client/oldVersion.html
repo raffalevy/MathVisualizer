@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parametric Function Plotter</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+<h1>Parametric Function Plotter</h1>
+
+<p>Type a parametric function to plot:
+
+<p><label>\(x(t) = \) <input type="text" id="xInput" value="t"></label> <span id="xTex"></span>
+<p><label>\(y(t) = \) <input type="text" id="yInput" value="t^2"></label> <span id="yTex"></span>
+<p><label>From <input type="text" id="startInput" value="-3"></label> <label>to <input type="text" id="endInput" value="3"></label></p>
+<p><label>Step size: <input type="text" id="stepSizeInput" value="0.1"></label>
+<p><canvas id="visualizer" draggable="true"></canvas>
+</p>
+<script src="lib/math.js"></script>
+<script src="ts/index.js"></script>
+</body>
+</html>

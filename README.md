@@ -5,7 +5,7 @@
 **Requirements**: Node.js, NPM
 
     > npm install
-    > $(npm bin)/tsc
+    > npm run build
     
 ## Running
 

@@ -1,6 +1,8 @@
 const WIDTH = 600;
 const HEIGHT = 460;
 
+const UNIT = 20;
+
 const RES_FACTOR = 4;
 
 class CoordinateSystem {
@@ -77,7 +79,7 @@ function drawParametricCurve(p: ParametricFunction, start: number, end: number, 
     for (let t = start + step; t <= end; t += step) {
         ctx.lineTo(cs.x(pX(t)), cs.y(pY(t)));
     }
-    ctx.moveTo(cs.x(pX(end)), cs.y(pY(end)));
+    ctx.lineTo(cs.x(pX(end)), cs.y(pY(end)));
     ctx.stroke();
 }
 
@@ -90,9 +92,19 @@ const ctx = canvas.getContext('2d');
 
 ctx.scale(RES_FACTOR,RES_FACTOR);
 
-const cs = new CoordinateSystem(WIDTH/2, HEIGHT/2, 20);
+const cs = new CoordinateSystem(WIDTH/2, HEIGHT/2, UNIT);
+
+interface ParametricFunctionParams {
+    p : ParametricFunction,
+    pStart : number,
+    pEnd : number,
+    pStep : number
+}
 
 let p = undefined;
+let pStart = -3;
+let pEnd = 3;
+let pStep = 0.1;
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -102,12 +114,15 @@ function draw() {
     drawAxes(ctx, cs);
 
     if (p) {
-        drawParametricCurve(p, -3, 3, .1, ctx, cs);
+        drawParametricCurve(p, pStart, pEnd, pStep, ctx, cs);
     }
 }
 
 const xInput = <HTMLInputElement>document.getElementById('xInput');
 const yInput = <HTMLInputElement>document.getElementById('yInput');
+const startInput = <HTMLInputElement>document.getElementById('startInput');
+const endInput = <HTMLInputElement>document.getElementById('endInput');
+const stepSizeInput = <HTMLInputElement>document.getElementById('stepSizeInput');
 const xTex = <HTMLSpanElement>document.getElementById('xTex');
 const yTex = <HTMLSpanElement>document.getElementById('yTex');
 
@@ -133,10 +148,20 @@ function onInput() {
 
     MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
-    if (xNode != 'undefined' && yNode != 'undefined') {
+    const startValue = parseFloat(startInput.value);
+    const endValue = parseFloat(endInput.value);
+    const stepSizeValue = parseFloat(stepSizeInput.value);
+
+    if (xNode != 'undefined' && yNode != 'undefined' && !isNaN(startValue) && !isNaN(endValue) && stepSizeValue) {
         p = new ParametricFunction(t => xNode.compile().eval({t:t}), t => yNode.compile().eval({t:t}));
+        pStart = startValue;
+        pEnd = endValue;
+        pStep = stepSizeValue;
     } else {
         p = undefined;
+        pStart = -3;
+        pEnd = 3;
+        pStep = 0.1;
     }
 
     draw();
@@ -144,5 +169,9 @@ function onInput() {
 
 xInput.addEventListener('input', onInput);
 yInput.addEventListener('input', onInput);
+startInput.addEventListener('input', onInput);
+endInput.addEventListener('input', onInput);
+stepSizeInput.addEventListener('input', onInput);
 
+onInput();
 draw();
