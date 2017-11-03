@@ -68,18 +68,20 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
     canvas = undefined;
     canvasRef = undefined;
 
-    constructor(props : PlotterProps) {
+    constructor(props: PlotterProps) {
         super(props);
         this.state = {
             ctx: null,
-            cs: new CoordinateSystem(Plotter.WIDTH/2, Plotter.HEIGHT/2, Plotter.UNIT),
+            cs: new CoordinateSystem(Plotter.WIDTH / 2, Plotter.HEIGHT / 2, Plotter.UNIT),
             parametricFunctions: props.parametricFunctions
         };
     }
 
     render() {
         this.canvas = (
-            <canvas ref={(canvasRef) => this.canvasRef = canvasRef} width={Plotter.WIDTH*Plotter.RES_FACTOR} height={Plotter.HEIGHT*Plotter.RES_FACTOR} style={Plotter.CANVAS_STYLE}>Canvas not supported.</canvas>
+            <canvas ref={(canvasRef) => this.canvasRef = canvasRef} width={Plotter.WIDTH * Plotter.RES_FACTOR}
+                    height={Plotter.HEIGHT * Plotter.RES_FACTOR} style={Plotter.CANVAS_STYLE}>Canvas not
+                supported.</canvas>
         );
         return this.canvas;
     }
@@ -87,7 +89,7 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
     componentDidMount() {
         const ctx = this.canvasRef.getContext('2d');
         this.setState({ctx: ctx}, () => {
-            ctx.scale(Plotter.RES_FACTOR,Plotter.RES_FACTOR);
+            ctx.scale(Plotter.RES_FACTOR, Plotter.RES_FACTOR);
 
             this.draw();
         });
@@ -112,7 +114,7 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
 
         if (this.props.parametricFunctions) {
             this.props.parametricFunctions.forEach(params => {
-                this.drawParametricCurve(params.p, params.pStart, params.pEnd, params.pStep);
+                if (params) this.drawParametricCurve(params.p, params.pStart, params.pEnd, params.pStep);
             });
         }
     }
@@ -155,6 +157,10 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
     }
 
     drawParametricCurve(p: ParametricFunction, start: number, end: number, step: number) {
+        if (start >= end || step === 0) {
+            return;
+        }
+
         const ctx = this.state.ctx;
         const cs = this.state.cs;
 

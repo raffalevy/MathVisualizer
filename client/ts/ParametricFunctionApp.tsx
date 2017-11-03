@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Plotter, ParametricFunction, ParametricFunctionParams} from "./Plotter";
+import {ParametricFunctionConfig} from "./ParametricFunctionConfig";
 
 interface ParametricFunctionAppState {
     f: ParametricFunctionParams
@@ -24,22 +25,17 @@ export class ParametricFunctionApp extends React.Component<{}, ParametricFunctio
     render() {
         return (
             <div>
-                <p>
-                    <button onClick={this.handleButtonClick.bind(this)}>Click this!</button>
-                </p>
-                <p>
+                <div>
+                    <ParametricFunctionConfig onFunctionChange={this.handleFunctionChange.bind(this)}/>
+                </div>
+                <div>
                     <Plotter parametricFunctions={[this.state.f]}/>
-                </p>
+                </div>
             </div>
         );
     }
 
-    handleButtonClick() {
-        this.setState({f: {
-            p: new ParametricFunction((t) => t * t, (t) => 3 * t),
-            pStart: -3,
-            pEnd: 3,
-            pStep: 0.1
-        }});
+    handleFunctionChange(f: ParametricFunctionParams) {
+        this.setState({f});
     }
 }

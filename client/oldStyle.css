@@ -15,3 +15,12 @@ h1 {
     padding-bottom: 10pt;
     border-bottom: solid 1px #eeeeee;
 }
+
+canvas {
+    border: solid 1px gray;
+}
+
+#visualizer {
+    width: 600px;
+    height: 460px;
+}
