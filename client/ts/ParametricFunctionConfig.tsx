@@ -5,6 +5,7 @@ import * as math from 'mathjs';
 
 interface PFConfigProps {
     onFunctionChange: (f: ParametricFunctionParams) => void
+    onZoomChange: (zoom: number) => void
 }
 
 interface PFConfigState {
@@ -13,20 +14,23 @@ interface PFConfigState {
     startValue: string
     endValue: string
     stepValue: string
+    zoom: number
 }
 
 export class ParametricFunctionConfig extends React.Component<PFConfigProps, PFConfigState> {
 
     fChanged = false;
+    zoomChanged = false;
 
     constructor(props) {
         super(props);
         this.state = {
-            xValue: 't^2',
-            yValue: '2t',
-            startValue: '-3',
-            endValue: '3',
-            stepValue: '0.1'
+            xValue: 'cos(7t)',
+            yValue: 'sin(11t)',
+            startValue: '0',
+            endValue: '2pi',
+            stepValue: '0.001',
+            zoom: 0.112
         }
     }
 
@@ -49,6 +53,9 @@ export class ParametricFunctionConfig extends React.Component<PFConfigProps, PFC
             <p>
                 <PFConfigField label="Step Size: " value={this.state.stepValue}
                                onValueChange={this.handleStepValueChange.bind(this)}/>
+            </p>
+            <p>
+                <PFZoomInput label="Zoom: " value={this.state.zoom} onValueChange={this.handleZoomChange.bind(this)}/>
             </p>
         </div>
     }
@@ -79,6 +86,11 @@ export class ParametricFunctionConfig extends React.Component<PFConfigProps, PFC
         //, this.updateFunction.bind(this)
     }
 
+    handleZoomChange(zoom) {
+        this.zoomChanged = true;
+        this.setState({zoom});
+    }
+
     componentDidUpdate() {
         this.updateFunction();
     }
@@ -90,6 +102,11 @@ export class ParametricFunctionConfig extends React.Component<PFConfigProps, PFC
         let pStart = undefined;
         let pEnd = undefined;
         let pStep = undefined;
+
+        if (this.zoomChanged) {
+            this.zoomChanged = false;
+            this.props.onZoomChange(this.state.zoom)
+        }
 
         try {
             xExpr = math.compile(this.state.xValue);
@@ -156,6 +173,29 @@ class PFConfigField extends React.Component<PFConfigFieldProps> {
     render() {
         return (<label>{this.props.label} <input type="text" onInput={this.handleChange.bind(this)}
                                                  defaultValue={this.props.value}/></label>);
+    }
+
+    handleChange(e: Event) {
+        this.props.onValueChange((e.target as any).value);
+    }
+}
+
+interface PFZoomInputProps {
+    label: string
+    value: number
+    onValueChange: (string) => void
+}
+
+class PFZoomInput extends React.Component<PFZoomInputProps> {
+
+    constructor(props: PFZoomInputProps) {
+        super(props);
+    }
+
+    render() {
+        return (<label>{this.props.label}
+            <input type="range" min="0" max="1" defaultValue={this.props.value.toString()} onChange={this.handleChange.bind(this)} step="0.01"/>
+        </label>);
     }
 
     handleChange(e: Event) {

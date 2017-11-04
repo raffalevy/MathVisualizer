@@ -10,9 +10,9 @@ export interface ParametricFunctionParams {
 
 export class CoordinateSystem {
 
-    originX: number;
-    originY: number;
-    unit: number;
+    readonly originX: number;
+    readonly originY: number;
+    readonly unit: number;
 
     constructor(originX: number, originY: number, unit: number) {
         this.originX = originX;
@@ -26,6 +26,10 @@ export class CoordinateSystem {
 
     y(inY: number): number {
         return Plotter.HEIGHT - (this.unit * inY + this.originY);
+    }
+
+    withUnit(newUnit) : CoordinateSystem {
+        return new CoordinateSystem(this.originX, this.originY, newUnit);
     }
 
 }
@@ -42,6 +46,7 @@ export class ParametricFunction {
 
 export interface PlotterProps {
     parametricFunctions?: ParametricFunctionParams[]
+    unit?: number
 }
 
 interface PlotterState {
@@ -55,7 +60,7 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
     static readonly WIDTH = 600;
     static readonly HEIGHT = 460;
 
-    static readonly UNIT = 20;
+    static readonly DEFAULT_UNIT = 20;
 
     static readonly RES_FACTOR = 4;
 
@@ -72,7 +77,7 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
         super(props);
         this.state = {
             ctx: null,
-            cs: new CoordinateSystem(Plotter.WIDTH / 2, Plotter.HEIGHT / 2, Plotter.UNIT),
+            cs: new CoordinateSystem(Plotter.WIDTH / 2, Plotter.HEIGHT / 2, this.props.unit || Plotter.DEFAULT_UNIT),
             parametricFunctions: props.parametricFunctions
         };
     }
@@ -99,11 +104,18 @@ export class Plotter extends React.Component<PlotterProps, PlotterState> {
         this.draw();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({parametricFunctions: nextProps.parametricFunctions});
+    componentWillReceiveProps(nextProps : PlotterProps) {
+        this.setState({
+            parametricFunctions: nextProps.parametricFunctions,
+            cs: this.state.cs.withUnit(nextProps.unit)
+        });
     }
 
     draw() {
+        if (this.props.unit == 0) {
+            return;
+        }
+
         const ctx = this.state.ctx;
 
         ctx.clearRect(0, 0, Plotter.WIDTH, Plotter.HEIGHT);
