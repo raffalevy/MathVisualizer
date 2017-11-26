@@ -1,9 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    entry: './client/ts/reactTest.js',
+    entry: {
+        reactTest: './client/ts/reactTest.js',
+        electric: './client/ts/electric.js'
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'client')
     }
 };

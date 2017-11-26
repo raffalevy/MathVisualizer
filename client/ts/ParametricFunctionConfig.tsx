@@ -186,7 +186,7 @@ interface PFZoomInputProps {
     onValueChange: (string) => void
 }
 
-class PFZoomInput extends React.Component<PFZoomInputProps> {
+export class PFZoomInput extends React.Component<PFZoomInputProps> {
 
     constructor(props: PFZoomInputProps) {
         super(props);
