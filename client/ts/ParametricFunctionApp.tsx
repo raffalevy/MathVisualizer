@@ -28,6 +28,7 @@ export class ParametricFunctionApp extends React.Component<{}, ParametricFunctio
     render() {
         return (
             <div>
+                <h1>Parametric Function Plotter</h1>
                 <div>
                     <ParametricFunctionConfig onFunctionChange={this.handleFunctionChange.bind(this)} onZoomChange={this.handleZoomChange.bind(this)}/>
                 </div>

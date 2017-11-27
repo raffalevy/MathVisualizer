@@ -19,8 +19,7 @@ class VectorFieldApp extends React.Component<{}, { zoom: number, unit: number, f
     static chargeField(q: number, xA: number, yA: number) : VectorField {
         return (x, y) => {
             const v = new Vector2D(x - xA, y - yA);
-            const vReduced = v.transform(z => z * q / v.magnitude() ** 2);
-            return vReduced;
+            return v.transform(z => z * q / v.magnitude() ** 2);
         }
     }
 
@@ -48,6 +47,7 @@ class VectorFieldApp extends React.Component<{}, { zoom: number, unit: number, f
 
     render() {
         return (<div>
+            <h1>Electric Field Plotter</h1>
             <div><Plotter
                 vectorFields={[VectorFieldApp.fieldTypes[this.state.fieldType] || VectorFieldApp.fieldTypes.single]}
                 unit={this.state.unit}/></div>
