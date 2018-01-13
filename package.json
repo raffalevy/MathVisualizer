@@ -1,6 +1,10 @@
 {
-  "name": "MathVisualizer",
+  "name": "mathvisualizer",
   "version": "0.0.1",
+  "author": {
+    "name": "Raffa Levy",
+    "url": "https://github.com/raffalevy"
+  },
   "dependencies": {
     "@types/express": "^4.0.39",
     "@types/mathjax": "0.0.32",
@@ -18,7 +22,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "start": "node server/ts/app",
+    "start": "node server/app",
     "build": "$(npm bin)/webpack",
     "dev-server": "$(npm bin)/webpack-dev-server",
     "watch": "$(npm bin)/webpack --watch"

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {ParametricFunctionParams, ParametricFunction} from './Plotter'
+import {ParametricFunctionParams, ParametricFunction} from './ParametricFunction'
 import * as math from 'mathjs';
 
 interface PFConfigProps {

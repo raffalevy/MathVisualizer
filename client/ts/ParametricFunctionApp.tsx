@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Plotter, ParametricFunction, ParametricFunctionParams} from "./Plotter";
+import {Plotter} from "./Plotter";
+import {ParametricFunction, ParametricFunctionParams} from './ParametricFunction';
 import {ParametricFunctionConfig} from "./ParametricFunctionConfig";
 import * as math from 'mathjs';
 

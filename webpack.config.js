@@ -3,11 +3,13 @@ const path = require('path');
 module.exports = {
     entry: {
         parametric: './client/ts/parametric.tsx',
-        electric: './client/ts/electric.tsx'
+        electric: './client/ts/electric.tsx',
+        diff: './client/ts/diff.tsx',
+        heat: './client/ts/heat.tsx'
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'client'),
+        path: path.resolve(__dirname, 'client/bundles'),
         publicPath: "client"
     },
     module: {

@@ -3,9 +3,11 @@ import * as React from 'react';
 
 import { PFZoomInput } from "./ParametricFunctionConfig";
 
-import { Plotter, Vector2D, VectorField } from './Plotter';
+import { Plotter} from './Plotter';
+import {Vector2D, VectorField} from './VectorField';
 
 import * as math from 'mathjs';
+import { CoordinateSystem } from './CoordinateSystem';
 
 /**
  * Base app component for electric field demo
